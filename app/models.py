@@ -11,7 +11,6 @@ def init_db():
     conn.commit()
     conn.close()
 
-
 def get_all_students():
     conn = get_db()
     students = conn.execute(
