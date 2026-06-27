@@ -38,3 +38,11 @@ def update_student_grade(student_id, grade):
     updated = cursor.rowcount > 0
     conn.close()
     return updated
+
+def delete_student(student_id):
+    conn = get_db()
+    cursor = conn.execute('DELETE FROM students WHERE id = ?', (student_id,))
+    conn.commit()
+    deleted = cursor.rowcount > 0
+    conn.close()
+    return deleted
