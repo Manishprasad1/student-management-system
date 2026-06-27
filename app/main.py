@@ -1,6 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, abort, redirect, render_template, request, url_for
 
-from models import get_all_students, init_db
+from models import get_all_students, get_student_by_id, init_db, update_student_grade
 
 app = Flask(__name__)
 
@@ -12,6 +12,16 @@ def home():
 def list_students():
     students = get_all_students()
     return render_template('students.html', students=students)
+
+@app.route('/students/<int:student_id>/grade', methods=['POST'])
+def update_grade(student_id):
+    grade = request.form.get('grade', '').strip()
+    if not grade:
+        abort(400, 'Grade is required')
+    if not get_student_by_id(student_id):
+        abort(404)
+    update_student_grade(student_id, grade)
+    return redirect(url_for('list_students'))
 
 if __name__ == '__main__':
     init_db()
