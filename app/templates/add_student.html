@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+    <style>
+        body { font-family: sans-serif; margin: 2rem; }
+        form { max-width: 400px; display: flex; flex-direction: column; gap: 1rem; }
+        label { display: flex; flex-direction: column; gap: 0.25rem; }
+        input { padding: 0.5rem; }
+        .actions { display: flex; gap: 0.5rem; }
+    </style>
+</head>
+<body>
+    <h1>Add Student</h1>
+    <form method="post" action="{{ url_for('create_student') }}">
+        <label>
+            Name
+            <input type="text" name="name" required>
+        </label>
+        <label>
+            Roll No
+            <input type="text" name="roll_no" required>
+        </label>
+        <label>
+            Grade
+            <input type="text" name="grade" required>
+        </label>
+        <div class="actions">
+            <button type="submit">Add</button>
+            <a href="{{ url_for('list_students') }}">Cancel</a>
+        </div>
+    </form>
+</body>
+</html>
