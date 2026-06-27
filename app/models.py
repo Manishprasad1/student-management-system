@@ -11,6 +11,17 @@ def init_db():
     conn.commit()
     conn.close()
 
+def add_student(name, roll_no, grade):
+    conn = get_db()
+    cursor = conn.execute(
+        'INSERT INTO students (name, roll_no, grade) VALUES (?, ?, ?)',
+        (name, roll_no, grade),
+    )
+    conn.commit()
+    student_id = cursor.lastrowid
+    conn.close()
+    return student_id
+
 def get_all_students():
     conn = get_db()
     students = conn.execute(
