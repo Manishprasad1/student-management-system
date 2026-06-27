@@ -23,6 +23,7 @@
                 <th>Name</th>
                 <th>Roll No</th>
                 <th>Grade</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +36,11 @@
                     <form class="grade-form" method="post" action="{{ url_for('update_grade', student_id=student.id) }}">
                         <input type="text" name="grade" value="{{ student.grade }}" required>
                         <button type="submit">Update</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post" action="{{ url_for('delete_student_route', student_id=student.id) }}" onsubmit="return confirm('Delete {{ student.name }}?');">
+                        <button type="submit">Delete</button>
                     </form>
                 </td>
             </tr>

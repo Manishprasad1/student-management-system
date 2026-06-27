@@ -1,6 +1,6 @@
 from flask import Flask, abort, redirect, render_template, request, url_for
 
-from models import get_all_students, get_student_by_id, init_db, update_student_grade
+from models import delete_student, get_all_students, get_student_by_id, init_db, update_student_grade
 
 app = Flask(__name__)
 
@@ -21,6 +21,13 @@ def update_grade(student_id):
     if not get_student_by_id(student_id):
         abort(404)
     update_student_grade(student_id, grade)
+    return redirect(url_for('list_students'))
+
+@app.route('/students/<int:student_id>/delete', methods=['POST'])
+def delete_student_route(student_id):
+    if not get_student_by_id(student_id):
+        abort(404)
+    delete_student(student_id)
     return redirect(url_for('list_students'))
 
 if __name__ == '__main__':
